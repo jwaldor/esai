@@ -1,101 +1,128 @@
-import Image from "next/image";
+import Link from "next/link"
+import { ToolsDisplay } from "@/components/ToolsDisplay"
+import StoryDialog from "@/components/StoryDialog"
 
-export default function Home() {
+export default function Page() {
+  const tools = [
+    {
+      title: "Story Strategist",
+      description: "Uncover unique themes and make unlikely connections across your story to package your most effective college application narrative.",
+      tags: ["#gettingstarted", "#yourstory"],
+      isFree: true,
+    },
+    {
+      title: "School Match Maker",
+      description: "Find the best schools and programs for you based on your strengths, goals, and budget.",
+      tags: ["#gettingstarted", "#perfectmatch"],
+      isFree: true,
+    },
+    {
+      title: "Major Mentor",
+      description: "Discover the best majors for you! Align your interests, strengths, and goals to find a future that fits.",
+      tags: ["#perfectmatch", "#gettingstarted"],
+      isFree: true,
+    },
+    {
+      title: "Personal Statement",
+      description: "Not sure what to write your main college essay about? We'll help you brainstorm topics that make your story work harder for you!",
+      tags: ["#gettingstarted", "#essaymaster", "#yourstory"],
+    },
+    {
+      title: "Supplemental Essay Assistant",
+      description: "Working on an essay for a specific school? We'll help you make it more specific and effective!",
+      tags: ["#gettingstarted", "#essaymaster", "#yourstory"],
+    },
+    {
+      title: "Outline Assistant",
+      description: "Map out your perfect story with a customized framework that helps you put pen to paper.",
+      tags: ["#essaymaster", "#yourstory"],
+    },
+    {
+      title: "Conclusion Coach",
+      description: "Not sure how to land your essay? Leave your reader wanting more with this custom conclusion coach.",
+      tags: ["#essaymaster", "#finishingtouch"],
+    },
+    {
+      title: "Hook Generator",
+      description: "Grab your reader from the first sentence to create an essay that gets remembered.",
+      tags: ["#gettingstarted", "#essaymaster"],
+    },
+    {
+      title: "Essay Draft Editor",
+      description: "Looking for feedback on your essay draft? We'll help with grammar, spelling, flow of ideas, and more!",
+      tags: ["#essaymaster", "#finishingtouch", "#yourstory"],
+    },
+  ]
+
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li>Save and see your changes instantly.</li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
+      <header className="border-b">
+        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
+          <div className="flex items-center gap-8">
+            <Link href="/" className="text-2xl font-bold">
+              ESAI
+            </Link>
+          </div>
+          <div className="flex items-center gap-4">
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:min-w-44"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+          </div>
         </div>
+      </header>
+
+      <aside className="fixed left-0 top-0 h-screen w-64 p-4 border-r bg-white">
+        <nav className="space-y-4">
+          <Link href="/" className="text-2xl font-bold block mb-8">
+            ESAI
+          </Link>
+          <div className="space-y-2">
+            <Link href="#" className="text-purple-600 block">
+              All ESAI Tools
+            </Link>
+            <Link href="#" className="text-gray-600 block">
+              History
+            </Link>
+            <Link href="#" className="text-gray-600 block">
+              Get AI Certified
+            </Link>
+            <Link href="#" className="text-gray-600 block">
+              Hall of Acceptances
+            </Link>
+          </div>
+          <div className="mt-8">
+            <h3 className="text-sm font-medium text-purple-600 mb-4">
+              Track Your Progress with ESAI Punch Cards
+            </h3>
+            <div className="grid grid-cols-3 gap-2">
+              {[...Array(12)].map((_, i) => (
+                <div key={i} className="aspect-square bg-gray-100 rounded-lg" />
+              ))}
+            </div>
+          </div>
+          <div className="absolute bottom-4 left-4">
+            <h4 className="text-sm text-gray-600 mb-2">Share Feedback</h4>
+            <div className="flex gap-4">
+              <Link href="#" className="text-gray-600">
+                FB
+              </Link>
+              <Link href="#" className="text-gray-600">
+                IG
+              </Link>
+              <Link href="#" className="text-gray-600">
+                IN
+              </Link>
+              <Link href="#" className="text-gray-600">
+                TK
+              </Link>
+            </div>
+          </div>
+        </nav>
+      </aside>
+
+      <main className="pl-64">
+        {/* <ToolsDisplay tools={tools} /> */}
+        <StoryDialog />
       </main>
-      <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
-  );
+  )
 }
+
