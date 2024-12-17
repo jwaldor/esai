@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { Star, PenSquare } from 'lucide-react'
+import { PenSquare } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import useStore from '@/app/state'
@@ -32,17 +32,7 @@ export default function EditableResponse({ id }: { id: number }) {
         <span className="text-md">{input}</span>
       )}
       <div className="flex items-center gap-4">
-        {/* <div className="flex gap-1">
-          {[1, 2, 3, 4, 5].map((star) => (
-            <Star
-              key={star}
-              className={`w-5 h-5 ${star <= rating
-                ? 'fill-[#6366f1] text-[#6366f1]'
-                : 'fill-[#6366f1]/20 text-[#6366f1]/20'
-                }`}
-            />
-          ))}
-        </div> */}
+
 
         <Button
           variant="ghost"

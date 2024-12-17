@@ -9,7 +9,7 @@ import { Suggestion } from '@/types/suggestions';
 
 
 export default function EnterButton() {
-  const { incrementDisplayed, numberDisplayed, questions, setSuggestions, setSubmitted, addToHistory } = useStore();
+  const { incrementDisplayed, numberDisplayed, questions, setSuggestions, submitted, setSubmitted, addToHistory } = useStore();
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -58,8 +58,8 @@ export default function EnterButton() {
 
   return (
     <div className="flex flex-col items-center gap-2">
-      <span className="text-blue-400 text-xs">Press Enter</span>
-      <Button
+      {!submitted && <span className="text-blue-400 text-xs">Press Enter</span>}
+      {!submitted && <Button
         className="bg-[#f3ff87] hover:bg-[#e9ff66] text-[#1a1a1a] px-12 py-6 rounded-full border border-[#1a1a1a]/10 transition-colors"
         onClick={handlePress}
       >
@@ -75,7 +75,7 @@ export default function EnterButton() {
             }
           })()
         }
-      </Button>
+      </Button>}
     </div>
   )
 }

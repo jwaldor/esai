@@ -16,7 +16,7 @@ export default function StoryStrategyCard({
   isBookmarked,
   createdAt,
 }: Suggestion) {
-  const { setBookmarked, updateHistoryItem } = useStore();
+  const { toggleBookmarked, updateHistoryItem } = useStore();
   const [showChatInput, setShowChatInput] = useState(false);
   const [chatMessage, setChatMessage] = useState('');
   const [chatHistory, setChatHistory] = useState<{ role: 'user' | 'assistant', content: string }[]>([]);
@@ -26,7 +26,7 @@ export default function StoryStrategyCard({
     if (!chatMessage.trim()) return;
 
     setIsLoading(true);
-    const newHistory = [...chatHistory, { role: 'user', content: chatMessage }];
+    const newHistory = [...chatHistory, { role: 'user' as const, content: chatMessage }];
     setChatHistory(newHistory);
     setChatMessage('');
 
@@ -75,7 +75,8 @@ export default function StoryStrategyCard({
             variant="ghost"
             onClick={() => {
               console.log('bookmarking')
-              setBookmarked(id, !isBookmarked)
+              toggleBookmarked(id)
+
             }}>
             <Bookmark
               className="w-5 h-5"

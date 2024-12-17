@@ -21,7 +21,7 @@ interface State {
   submitted: boolean;
   setSubmitted: (submitted: boolean) => void;
   setSuggestions: (suggestions: Suggestion[]) => void;
-  setBookmarked: (id: string, bookmarked: boolean) => void;
+  toggleBookmarked: (id: string) => void;
   history: HistoryEntry[];
   addToHistory: () => void;
   resetQuestions: () => void;
@@ -49,33 +49,79 @@ const useStore = create<State>()(
       suggestions: [],
       submitted: false,
       setSubmitted: (submitted: boolean) => set({ submitted }),
-      setSuggestions: (suggestions: Suggestion[]) => set({ suggestions }),
-      setBookmarked: (id: string, bookmarked: boolean) => {
-        set((state) => ({
-          suggestions: structuredClone(state.suggestions).map((suggestion) =>
-            suggestion.id === id
-              ? { ...suggestion, isBookmarked: bookmarked }
-              : suggestion
-          ),
-        }));
-        set((state) => ({
-          history: structuredClone(state.history).map((historyItem) => {
-            const suggestion = historyItem.suggestions.find(
-              (suggestion) => suggestion.id === id
-            );
-            return suggestion
-              ? {
-                  ...historyItem,
-                  suggestions: [
-                    ...historyItem.suggestions.filter(
-                      (suggestion) => suggestion.id !== id
-                    ),
-                    { ...suggestion, isBookmarked: bookmarked },
-                  ],
-                }
-              : historyItem;
-          }),
-        }));
+      setSuggestions: (suggestions: Suggestion[]) =>
+        set({
+          suggestions: suggestions.map((suggestion) => ({
+            ...suggestion,
+            isBookmarked: false,
+          })),
+        }),
+      toggleBookmarked: (id: string) => {
+        console.log("toggleBookmarked", id);
+
+        set((state) => {
+          console.log(
+            structuredClone(state.suggestions).map((suggestion) =>
+              suggestion.id === id
+                ? { ...suggestion, isBookmarked: !suggestion.isBookmarked }
+                : suggestion
+            )
+          );
+          return {
+            suggestions: structuredClone(state.suggestions).map((suggestion) =>
+              suggestion.id === id
+                ? { ...suggestion, isBookmarked: !suggestion.isBookmarked }
+                : suggestion
+            ),
+          };
+        });
+        set((state) => {
+          // console.log(
+          //   structuredClone(state.history).map((historyItem) => {
+          //     const suggestion = historyItem.suggestions.find(
+          //       (suggestion) => suggestion.id === id
+          //     );
+          //     return suggestion
+          //       ? {
+          //           ...historyItem,
+          //           suggestions: [
+          //             ...historyItem.suggestions.filter(
+          //               (suggestion) => suggestion.id !== id
+          //             ),
+          //             { ...suggestion, isBookmarked: !suggestion.isBookmarked },
+          //           ],
+          //         }
+          //       : historyItem;
+          //   })
+          // );
+          return {
+            history: structuredClone(state.history).map((historyItem) => {
+              const suggestion = historyItem.suggestions.find(
+                (suggestion) => suggestion.id === id
+              );
+              console.log("foundSuggestion", suggestion, [
+                ...historyItem.suggestions.filter(
+                  (suggestion) => suggestion.id !== id
+                ),
+                {
+                  ...suggestion,
+                  isBookmarked: suggestion?.isBookmarked ?? false,
+                },
+              ]);
+              return suggestion
+                ? {
+                    ...historyItem,
+                    suggestions: [
+                      ...historyItem.suggestions.filter(
+                        (suggestion) => suggestion.id !== id
+                      ),
+                      { ...suggestion, isBookmarked: !suggestion.isBookmarked },
+                    ],
+                  }
+                : historyItem;
+            }),
+          };
+        });
       },
       history: [],
       addToHistory: () =>

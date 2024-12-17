@@ -1,6 +1,5 @@
 'use client'
 
-import { Star } from 'lucide-react'
 import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import useStore from '@/app/state'
@@ -45,22 +44,7 @@ export default function StoryForm({ questions }: StoryFormProps) {
                         />
 
                         <div className="space-y-2">
-                            <p className="text-[#6b64ff] text-base">
-                                How important is this to your story?
-                            </p>
-                            <div className="flex gap-2">
-                                {[...Array(5)].map((_, i) => (
-                                    <button
-                                        key={i}
-                                        className="text-[#d4d1ff] hover:text-[#6b64ff] transition-colors"
-                                        onClick={() => {
-                                            // Handle rating selection
-                                        }}
-                                    >
-                                        <Star className="w-6 h-6" />
-                                    </button>
-                                ))}
-                            </div>
+
                         </div>
                     </div>
                 ))}

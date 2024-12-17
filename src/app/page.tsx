@@ -55,9 +55,9 @@ export default function Page() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50 grid grid-cols-[256px_1fr]">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50 md:grid md:grid-cols-[256px_1fr]">
       <Sidebar />
-      <main className="col-start-2">
+      <main className="md:col-start-2">
         <ToolsDisplay tools={tools} />
       </main>
     </div>
