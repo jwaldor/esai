@@ -1,25 +1,24 @@
 "use client"
 
-import useStore from "@/app/state";
-import StoryForm from "./dialog/story-form"
 import { Card } from "@/components/ui/card"
-import EnterButton from "./enter-button";
 import EditableResponse from "./editable-response";
 import StoryStrategyCard from "./save-card";
-import { Loader2 } from "lucide-react"
-import { useEffect } from "react";
+import { Question } from "@/types/questions";
+import { Suggestion } from "@/types/suggestions";
+interface StoryDialogHistoryProps {
+    questions: Array<{
+        cardNumber: number;
+        list: Question[];
+    }>;
+    suggestions: Suggestion[];
+}
 
-export default function StoryDialog() {
-    const { numberDisplayed, questions, suggestions, submitted, resetQuestions } = useStore();
-    console.log("StoryDialog suggestions", suggestions);
+export default function StoryDialogHistory({ questions, suggestions }: StoryDialogHistoryProps) {
+    // numberDisplayed is always equal to questions.length
+    const numberDisplayed = questions.length;
 
-    useEffect(() => {
-        console.log("resetting questions")
-        resetQuestions();
-    }, [resetQuestions])
-
-    // Get all previous questions up to but not including the current one
-    const previousQuestions = questions.slice(0, Math.max(0, numberDisplayed - 1));
+    // Get all questions since this is a history view
+    const previousQuestions = questions.slice(0, numberDisplayed);
 
     return (
         <div className="bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 flex flex-col items-center rounded-3xl font-mono h-full">
@@ -46,32 +45,17 @@ export default function StoryDialog() {
                     </p>
                 </Card>
 
-                {/* Display EditableResponse components for previous questions */}
+                {/* Display EditableResponse components for all questions */}
                 {previousQuestions.map((questionSet) =>
                     questionSet.list.map((question) => (
                         <EditableResponse key={question.id} id={question.id} />
                     ))
                 )}
 
-                {/* Display current question form */}
-                {numberDisplayed > 0 && <div className="text-center text-sm text-gray-500">Step {numberDisplayed} of {questions.length}</div>}
-                {numberDisplayed >= 1 ?
-                    <StoryForm
-                        key={questions[numberDisplayed - 1].cardNumber}
-                        questions={questions[numberDisplayed - 1].list}
-                    />
-                    : null}
-
-                <EnterButton />
-
-                {submitted && suggestions.length === 0 && (
-                    <div className="flex items-center justify-center">
-                        <Loader2 className="h-12 w-12 animate-spin text-indigo-600" />
-                    </div>
+                {suggestions.map((suggestion) =>
+                    <StoryStrategyCard key={suggestion.id} {...suggestion} />
                 )}
-                {submitted && suggestions.length > 0 && suggestions.map((suggestion) => <StoryStrategyCard key={suggestion.id} {...suggestion} />)}
             </div>
         </div>
     )
-}
-
+} 

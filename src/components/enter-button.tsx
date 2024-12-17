@@ -9,7 +9,7 @@ import { Suggestion } from '@/types/suggestions';
 
 
 export default function EnterButton() {
-  const { incrementDisplayed, numberDisplayed, questions, setSuggestions, setSubmitted } = useStore();
+  const { incrementDisplayed, numberDisplayed, questions, setSuggestions, setSubmitted, addToHistory } = useStore();
 
   const handleSubmit = useCallback(async () => {
     try {
@@ -29,13 +29,14 @@ export default function EnterButton() {
 
         const suggestions: Suggestion[] = await response.json();
         setSuggestions(suggestions);
+        addToHistory();
         console.log('Received suggestions:', suggestions);
       })()
     } catch (error) {
       console.error('Error submitting questions:', error);
       // Handle error appropriately
     }
-  }, [questions, setSuggestions, setSubmitted]);
+  }, [questions, setSuggestions, setSubmitted, addToHistory]);
   const handlePress = useCallback(async () => {
     if (numberDisplayed === questions.length) {
       await handleSubmit();
