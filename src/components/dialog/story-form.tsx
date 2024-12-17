@@ -10,6 +10,7 @@ interface StoryQuestion {
     description: string
     exampleAnswer: string
     id: number
+    input: string
 }
 
 interface StoryFormProps {
@@ -18,6 +19,11 @@ interface StoryFormProps {
 
 export default function StoryForm({ questions }: StoryFormProps) {
     const { setInput } = useStore();
+
+    const handleInputChange = (id: number) => (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+        setInput(id, e.target.value);
+    };
+
     return (
 
         <Card className="p-8 bg-white rounded-3xl text-left">
@@ -33,9 +39,8 @@ export default function StoryForm({ questions }: StoryFormProps) {
 
                         <Textarea
                             placeholder={`example: ${question.exampleAnswer}`}
-                            onChange={(e) => {
-                                setInput({ text: e.target.value, id: question.id })
-                            }}
+                            onChange={handleInputChange(question.id)}
+                            value={question.input}
                             className="rounded-2xl p-4 text-[#8b86ff] text-sm placeholder:text-[#8b86ff] resize-none "
                         />
 

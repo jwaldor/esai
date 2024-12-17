@@ -55,21 +55,8 @@ export default function Page() {
   ]
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50">
-      <header className="border-b">
-        <div className="container mx-auto px-4 h-16 flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            <Link href="/" className="text-2xl font-bold">
-              ESAI
-            </Link>
-          </div>
-          <div className="flex items-center gap-4">
-
-          </div>
-        </div>
-      </header>
-
-      <aside className="fixed left-0 top-0 h-screen w-64 p-4 border-r bg-white">
+    <div className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-green-50 grid grid-cols-[256px_1fr]">
+      <div className="fixed left-0 top-0 h-screen w-64 p-4 border-r bg-white">
         <nav className="space-y-4">
           <Link href="/" className="text-2xl font-bold block mb-8">
             ESAI
@@ -80,12 +67,6 @@ export default function Page() {
             </Link>
             <Link href="#" className="text-gray-600 block">
               History
-            </Link>
-            <Link href="#" className="text-gray-600 block">
-              Get AI Certified
-            </Link>
-            <Link href="#" className="text-gray-600 block">
-              Hall of Acceptances
             </Link>
           </div>
           <div className="mt-8">
@@ -98,27 +79,11 @@ export default function Page() {
               ))}
             </div>
           </div>
-          <div className="absolute bottom-4 left-4">
-            <h4 className="text-sm text-gray-600 mb-2">Share Feedback</h4>
-            <div className="flex gap-4">
-              <Link href="#" className="text-gray-600">
-                FB
-              </Link>
-              <Link href="#" className="text-gray-600">
-                IG
-              </Link>
-              <Link href="#" className="text-gray-600">
-                IN
-              </Link>
-              <Link href="#" className="text-gray-600">
-                TK
-              </Link>
-            </div>
-          </div>
-        </nav>
-      </aside>
 
-      <main className="pl-64">
+        </nav>
+      </div>
+
+      <main className="col-start-2">
         {/* <ToolsDisplay tools={tools} /> */}
         <StoryDialog />
       </main>

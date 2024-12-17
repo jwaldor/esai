@@ -7,15 +7,18 @@ import { Input } from '@/components/ui/input'
 import useStore from '@/app/state'
 
 export default function EditableResponse({ id }: { id: number }) {
-  const { setInput, input } = useStore();
+  const { setInput, questions } = useStore();
   const [isEditing, setIsEditing] = useState(false)
+
+  const question = questions.flat().find(q => q.list.find(item => item.id === id))?.list.find(item => item.id === id);
+  const input = question?.input || "";
 
   return (
     <div className="flex flex-col items-left text-left justify-between p-4 rounded-3xl border border-[#6366f1]/20 bg-white/50 backdrop-blur-sm max-w-md gap-4 ml-auto">
       {isEditing ? (
         <Input
-          value={input.find(i => i.id === id)!.text}
-          onChange={(e) => setInput({ text: e.target.value, id })}
+          value={input}
+          onChange={(e) => setInput(id, e.target.value)}
           onBlur={() => setIsEditing(false)}
           onKeyDown={(e) => {
             if (e.key === 'Enter') {
@@ -26,7 +29,7 @@ export default function EditableResponse({ id }: { id: number }) {
           autoFocus
         />
       ) : (
-        <span className="text-md">{input.find(i => i.id === id)!.text}</span>
+        <span className="text-md">{input}</span>
       )}
       <div className="flex items-center gap-4">
         {/* <div className="flex gap-1">

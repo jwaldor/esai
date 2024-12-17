@@ -5,13 +5,17 @@ import StoryForm from "./dialog/story-form"
 import { Card } from "@/components/ui/card"
 import EnterButton from "./enter-button";
 import EditableResponse from "./editable-response";
-import { questions } from "@/app/state";
+import StoryStrategyCard from "./university-card";
+import { Loader2 } from "lucide-react"
 
 export default function StoryDialog() {
-    const { numberDisplayed } = useStore();
+    const { numberDisplayed, questions, suggestions, submitted } = useStore();
+
 
     // Get all previous questions up to but not including the current one
     const previousQuestions = questions.slice(0, Math.max(0, numberDisplayed - 1));
+    console.log(JSON.stringify(suggestions))
+    console.log(JSON.stringify(previousQuestions))
 
     return (
         <div className="bg-gradient-to-br from-blue-50 to-white p-8 md:p-12 flex flex-col items-center rounded-3xl font-mono h-full">
@@ -55,6 +59,13 @@ export default function StoryDialog() {
                     : null}
 
                 <EnterButton />
+
+                {submitted && suggestions.length === 0 && (
+                    <div className="flex items-center justify-center">
+                        <Loader2 className="h-12 w-12 animate-spin text-indigo-600" />
+                    </div>
+                )}
+                {submitted && suggestions.length > 0 && suggestions.map((suggestion) => <StoryStrategyCard key={suggestion.id} {...suggestion} />)}
             </div>
         </div>
     )
